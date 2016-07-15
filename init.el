@@ -22,11 +22,17 @@
 (define-key evil-normal-state-map (kbd "C-k") 'evil-window-up)
 (define-key evil-normal-state-map (kbd "C-l") 'evil-window-right)
 
-(setq-default evil-escape-key-sequence "jk") ;; declare evil escape key sequence; this is a minor mode
-(setq-default evil-escape-delay 0.2) ;; set delay for evil-escape
-(evil-escape-mode 1) ;; enable evil-escape by default
+(setq-default evil-escape-key-sequence "jk") ; declare evil escape key sequence; this is a minor mode
+(setq-default evil-escape-delay 0.2) ; set delay for evil-escape
+(evil-escape-mode 1) ; enable evil-escape by default
 
+;; function to wrap words and sentences in org mode
 (setq-default fill-column 80)
 (add-hook 'org-mode-hook 'my-org-mode-hook)
 (defun my-org-mode-hook ()
-  (auto-fill-mode 1)) ;; set word wrap at the set column limit
+  (auto-fill-mode 1)) ; set word wrap at the set column limit
+
+;; disable pointless gui stuff
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
