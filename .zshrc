@@ -15,7 +15,7 @@
 if [ -n "$INSIDE_EMACS" ]; then
     export ZSH_THEME="rawsyntax"
 else
-    export ZSH_THEME="agnoster"
+    export ZSH_THEME="fino"
 fi
 
 # Uncomment the following line to use case-sensitive completion.
