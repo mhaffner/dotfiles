@@ -15,6 +15,7 @@ values."
      ;; -defaults
      emacs-lisp
      spacemacs-layouts
+     ;;eyebrowse
      git
      markdown
      org
@@ -129,12 +130,10 @@ you should place your code here."
   (add-hook 'org-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'abbrev-mode)
   (add-hook 'ess-mode-hook 'linum-mode)
-  (workgroups-mode 1)
+  ;; (workgroups-mode 1)
   (setq forecast-latitude 36.11236
         forecast-longitude -97.07025
-        forecast-city "Stillwater"
-        forecast-country "United States"
-        forecast-api-key "a8d9b12e8ebdf402057f7fdc63466192"
+        forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
         forecast-units "us")
   ;;(setq wg-session-load-on-start t)
 ;;  (spacemacs//layouts-persp-load-state-from-file-L "/home/matt/.emacs.d/.cache/layouts/Home")
