@@ -15,7 +15,7 @@ values."
      ;; -defaults
      emacs-lisp
      spacemacs-layouts
-     ;;eyebrowse
+     eyebrowse
      git
      markdown
      org
@@ -37,6 +37,8 @@ values."
    '(
      workgroups2
      forecast
+     ssh
+     helm-google
     )
    dotspacemacs-excluded-packages '()
    dotspacemacs-delete-orphan-packages t))
@@ -129,6 +131,7 @@ you should place your code here."
   (setq-default evil-escape-key-sequence "jk")
   (add-hook 'org-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'abbrev-mode)
+  (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'ess-mode-hook 'linum-mode)
   ;; (workgroups-mode 1)
   (setq forecast-latitude 36.11236
