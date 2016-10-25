@@ -70,7 +70,7 @@ values."
                          leuven
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("Source Code Pro"
+   dotspacemacs-default-font '("Monospace"
                                :size 15
                                :weight normal
                                :width normal
@@ -127,13 +127,13 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  ;; set escape keybinding to "jk"
-  (setq-default evil-escape-key-sequence "jk")
+  (setq-default evil-escape-key-sequence "jk") ; set escape keybinding to "jk"
   (add-hook 'org-mode-hook 'auto-fill-mode)
   (add-hook 'org-mode-hook 'abbrev-mode)
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'ess-mode-hook 'linum-mode)
-  ;; (workgroups-mode 1)
+  (setq org-agenda-files '("~/MEGA/megasync/agenda"))
+  ;; (workgroups-mode 1) ; workgroups-mode causes helm to hang up like mad
   (setq forecast-latitude 36.11236
         forecast-longitude -97.07025
         forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
