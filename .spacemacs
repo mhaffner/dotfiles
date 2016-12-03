@@ -62,15 +62,11 @@ values."
    dotspacemacs-startup-recent-list-size 5
    dotspacemacs-scratch-mode 'org-mode
    dotspacemacs-themes '(
-                         monokai
                          spacemacs-dark
-                         spacemacs-light
-                         solarized-light
-                         solarized-dark
-                         leuven
+                         monokai
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("Monospace"
+   dotspacemacs-default-font '("Source Code Pro"
                                :size 15
                                :weight normal
                                :width normal
@@ -133,13 +129,12 @@ you should place your code here."
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'ess-mode-hook 'linum-mode)
   (setq org-agenda-files '("~/MEGA/megasync/agenda"))
-  ;; (workgroups-mode 1) ; workgroups-mode causes helm to hang up like mad
   (setq forecast-latitude 36.11236
         forecast-longitude -97.07025
         forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
         forecast-units "us")
-  ;;(setq wg-session-load-on-start t)
-;;  (spacemacs//layouts-persp-load-state-from-file-L "/home/matt/.emacs.d/.cache/layouts/Home")
+  (with-eval-after-load 'flyspell
+    (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
