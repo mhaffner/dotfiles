@@ -11,8 +11,8 @@ values."
    dotspacemacs-configuration-layer-path '()
    dotspacemacs-configuration-layers
    '(
+     csv
      auto-completion
-     ;; -defaults
      emacs-lisp
      spacemacs-layouts
      eyebrowse
@@ -60,7 +60,7 @@ values."
    dotspacemacs-startup-banner 'random
    dotspacemacs-startup-lists '(recents projects)
    dotspacemacs-startup-recent-list-size 5
-   dotspacemacs-scratch-mode 'org-mode
+   dotspacemacs-scratch-mode 'Fundamental
    dotspacemacs-themes '(
                          spacemacs-dark
                          monokai
@@ -129,13 +129,20 @@ you should place your code here."
   (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'ess-mode-hook 'linum-mode)
   (setq org-agenda-files '("~/MEGA/megasync/agenda"))
+  (with-eval-after-load 'org ; must be evaluated after load to prevent version conflicts
+    (add-hook 'org-mode-hook 'auto-fill-mode)
+    (add-hook 'org-mode-hook 'abbrev-mode)
+    (add-hook 'org-mode-hook 'flyspell-mode)
+    (add-hook 'ess-mode-hook 'linum-mode)
+    (setq org-agenda-files '("~/MEGA/megasync/agenda"))
+    (setq org-startup-indented t)
+    )
+  (with-eval-after-load 'flyspell
+    (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
+  )
   (setq forecast-latitude 36.11236
         forecast-longitude -97.07025
         forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
         forecast-units "us")
-  (with-eval-after-load 'flyspell
-    (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
-  )
-
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
