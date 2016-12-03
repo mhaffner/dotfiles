@@ -124,11 +124,7 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default evil-escape-key-sequence "jk") ; set escape keybinding to "jk"
-  (add-hook 'org-mode-hook 'auto-fill-mode)
-  (add-hook 'org-mode-hook 'abbrev-mode)
-  (add-hook 'org-mode-hook 'flyspell-mode)
   (add-hook 'ess-mode-hook 'linum-mode)
-  (setq org-agenda-files '("~/MEGA/megasync/agenda"))
   (with-eval-after-load 'org ; must be evaluated after load to prevent version conflicts
     (add-hook 'org-mode-hook 'auto-fill-mode)
     (add-hook 'org-mode-hook 'abbrev-mode)
