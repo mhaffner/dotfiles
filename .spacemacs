@@ -16,6 +16,7 @@ values."
      emacs-lisp
      spacemacs-layouts
      eyebrowse
+     php
      git
      markdown
      org
@@ -124,6 +125,7 @@ This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default evil-escape-key-sequence "jk") ; set escape keybinding to "jk"
+  (setq spacemacs-useless-buffers-regexp '("\\*helm\.+\\*"))
   (add-hook 'ess-mode-hook 'linum-mode)
   (with-eval-after-load 'org ; must be evaluated after load to prevent version conflicts
     (add-hook 'org-mode-hook 'auto-fill-mode)
@@ -135,10 +137,10 @@ you should place your code here."
     )
   (with-eval-after-load 'flyspell
     (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
-  )
   (setq forecast-latitude 36.11236
         forecast-longitude -97.07025
         forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
         forecast-units "us")
+  )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
