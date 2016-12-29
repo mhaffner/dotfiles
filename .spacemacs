@@ -68,7 +68,7 @@ values."
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 20
+                               :size 16
                                :weight normal
                                :width normal
                                :powerline-scale 1.00)
@@ -92,7 +92,7 @@ values."
    dotspacemacs-which-key-delay 0.1
    dotspacemacs-which-key-position 'bottom
    dotspacemacs-loading-progress-bar t
-   dotspacemacs-fullscreen-at-startup nil
+   dotspacemacs-fullscreen-at-startup t
    dotspacemacs-fullscreen-use-non-native nil
    dotspacemacs-maximized-at-startup nil
    dotspacemacs-active-transparency 90
@@ -126,6 +126,7 @@ explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
   (setq-default evil-escape-key-sequence "jk") ; set escape keybinding to "jk"
   (setq spacemacs-useless-buffers-regexp '("\\*helm\.+\\*"))
+  (display-time)
   (add-hook 'ess-mode-hook 'linum-mode)
   (with-eval-after-load 'org ; must be evaluated after load to prevent version conflicts
     (add-hook 'org-mode-hook 'auto-fill-mode)
