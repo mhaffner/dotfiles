@@ -15,7 +15,6 @@ values."
      auto-completion
      emacs-lisp
      spacemacs-layouts
-     eyebrowse
      php
      git
      markdown
@@ -67,11 +66,17 @@ values."
                          monokai
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 16
-                               :weight normal
-                               :width normal
-                               :powerline-scale 1.00)
+   dotspacemacs-default-font (if (equal (system-name) "panopticon") ;; use different size font on laptop/desktop
+                                 '("Source Code Pro"
+                                   :size 16
+                                   :weight normal
+                                   :width normal
+                                   :powerline-scale 1.00)
+                                 '("Source Code Pro"
+                                   :size 20
+                                   :weight normal
+                                   :width normal
+                                   :powerline-scale 1.00))
    dotspacemacs-leader-key "SPC"
    dotspacemacs-emacs-leader-key "M-m"
    dotspacemacs-major-mode-leader-key ","
