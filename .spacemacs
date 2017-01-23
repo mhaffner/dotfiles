@@ -212,7 +212,7 @@ you should place your code here."
       (eshell)
       (select-window-4)
       (forecast)
-      (select-window-3)))
+      ))
 )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
