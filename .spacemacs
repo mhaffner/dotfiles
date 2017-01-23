@@ -17,6 +17,7 @@ values."
      spacemacs-layouts
      php
      git
+     (mu4e :variables mu4e-account-alist t)
      markdown
      org
      python
@@ -35,10 +36,11 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages
    '(
-     workgroups2
      forecast
+     mu4e-alert
      ssh
      helm-google
+     smtpmail ;; necessary?
     )
    dotspacemacs-excluded-packages '()
    dotspacemacs-delete-orphan-packages t))
@@ -66,7 +68,7 @@ values."
                          monokai
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font (if (equal (system-name) "panopticon") ;; use different size font on laptop/desktop
+   dotspacemacs-default-font (if (string-equal (system-name) "panopticon") ;; use different size font on laptop/desktop
                                  '("Source Code Pro"
                                    :size 16
                                    :weight normal
@@ -129,8 +131,11 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (require 'helm-command) ;; makes helm faster?
   (setq-default evil-escape-key-sequence "jk") ; set escape keybinding to "jk"
-  (setq spacemacs-useless-buffers-regexp '("\\*helm\.+\\*"))
+  (setq spacemacs-useless-buffers-regexp '("\\*helm\.+\\*")) ; make only helm buffers useless
+  (setq powerline-default-separator 'arrow)
+  (setq vc-follow-symlinks nil)
   (display-time)
   (add-hook 'ess-mode-hook 'linum-mode)
   (with-eval-after-load 'org ; must be evaluated after load to prevent version conflicts
@@ -147,24 +152,82 @@ you should place your code here."
         forecast-longitude -97.07025
         forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
         forecast-units "us")
-(spacemacs|define-custom-layout "@startup"
-  :binding "+"
-  :body
-  (find-file "~/Sync/agenda/todo-list.org")
-  (persp-add-buffer (current-buffer))
-  (split-window-right-and-focus)
-  (eshell)
-  (persp-add-buffer (current-buffer))
-  (split-window-below-and-focus)
-  (forecast)
-  (persp-add-buffer (current-buffer))
-  )
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; mu4e
+  (setq mu4e-account-alist
+        '(("gmail"
+           (mu4e-sent-messages-behavior delete)
+           (mu4e-sent-folder "/[Gmail].Sent Mail")
+           (mu4e-drafts-folder "/[Gmail].Drafts")
+           (mu4e-trash-folder "/[Gmail].Trash")
+           (user-mail-address "haffner.matthew.m@gmail.com")
+           (user-full-name "Matthew Haffner"))
+          ("osu"
+           (mu4e-sent-messages-behavior delete)
+           (mu4e-sent-folder "/[Gmail].Sent Mail")
+           (mu4e-drafts-folder "/[Gmail].Drafts")
+           (mu4e-trash-folder "/[Gmail].Trash")
+           (user-mail-address "matt.haffner@okstate.edu")
+           (user-full-name "Matthew Haffner"))))
+
+  (mu4e/mail-account-reset) ; activates account information
+
+  (setq mu4e-maildir "~/Maildir"
+        mu4e-get-mail-command "mbsync -a"
+        ; mu4e-update-interval 30
+        mu4e-compose-signature-auto-include t
+        mu4e-view-show-images t
+        mu4e-view-show-addresses t
+        mu4e-get-mail-command "offlineimap"
+        mu4e-compose-signature
+        (concat "Matthew Haffner\n"
+                "PhD Student/Graduate Research Assistant\n"
+                "Department of Geography\n"
+                "Oklahoma State University"))
+
+  ;; For sending mail
+  ;(require 'smtpmail)
+  (setq message-send-mail-function 'smtpmail-send-it
+        starttls-use-gnutls t
+        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+        smtpmail-auth-credentials
+        '(("smtp.gmail.com" 587 "haffner.matthew.m@gmail.com" nil))
+        smtpmail-default-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-server "smtp.gmail.com"
+        smtpmail-smtp-service 587)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 ;; Set startup layout
-(find-file "~/Sync/agenda/todo-list.org")
-(split-window-right-and-focus)
-(eshell)
-(split-window-below-and-focus)
-(forecast)
+(if (string-equal (system-name) "panopticon") 
+    (progn 
+      (spacemacs/layout-triple-columns)
+      (select-window-1)
+      (spacemacs/find-dotfile)
+      (select-window-2)
+      (find-file "~/Sync/agenda/todo-list.org")
+      (split-window-below-and-focus)
+      (eshell)
+      (select-window-4)
+      (forecast)
+      (select-window-3)))
 )
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(send-mail-function (quote smtpmail-send-it)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
