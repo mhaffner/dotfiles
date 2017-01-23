@@ -145,6 +145,9 @@ you should place your code here."
     (add-hook 'ess-mode-hook 'linum-mode)
     (setq org-agenda-files '("~/MEGA/megasync/agenda"))
     (setq org-startup-indented t)
+    (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n,\"")
+    (setcar (nthcdr 4 org-emphasis-regexp-components) 100)
+    (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
     )
   (with-eval-after-load 'flyspell
     (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
