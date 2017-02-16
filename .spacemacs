@@ -195,9 +195,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
         smtpmail-smtp-service 587)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Set startup layout
-(if (string-equal (system-name) "panopticon") 
-    (progn 
+;; Different settings for various machines
+(if (string-equal (system-name) "panopticon")
+    (progn
+      ;; Set startup layout
       (spacemacs/layout-triple-columns)
       (select-window-1)
       (spacemacs/find-dotfile)
@@ -206,26 +207,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
       (split-window-below-and-focus)
       (eshell)
       (select-window-4)
-      (forecast)
-      ))
-)
+      (forecast))))
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(send-mail-function (quote smtpmail-send-it)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
