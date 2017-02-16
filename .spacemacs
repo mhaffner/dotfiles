@@ -125,17 +125,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
   )
 
 (defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
-  (require 'helm-command) ;; makes helm faster?
   (setq-default evil-escape-key-sequence "jk") ; set escape keybinding to "jk"
-  (setq spacemacs-useless-buffers-regexp '("\\*helm\.+\\*")) ; make only helm buffers useless
-  (setq powerline-default-separator 'arrow)
-  (setq vc-follow-symlinks nil)
+  (setq spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
+        powerline-default-separator 'arrow
+        vc-follow-symlinks nil)
   (display-time)
   (add-hook 'ess-mode-hook 'linum-mode)
   (with-eval-after-load 'org ; must be evaluated after load to prevent version conflicts
@@ -151,10 +144,12 @@ you should place your code here."
     )
   (with-eval-after-load 'flyspell
     (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
+
   (setq forecast-latitude 36.11236
         forecast-longitude -97.07025
         forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
         forecast-units "us")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mu4e
   (setq mu4e-account-alist
