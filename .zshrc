@@ -1,21 +1,16 @@
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
+
 # Path to your oh-my-zsh installation.
   export ZSH=/home/matt/.oh-my-zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# ZSH_THEME="junkfood"
-# ZSH_THEME="smt"
-# ZSH_THEME="sporty_256"
-# ZSH_THEME="xiong-chiamiov-plus"
-# ZSH_THEME="agnoster"
-# ZSH_THEME="fino-haff"
-# ZSH_THEME="robbyrussell"
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 if [ -n "$INSIDE_EMACS" ]; then
-    export ZSH_THEME="rawsyntax"
+    export ZSH_THEME="robbyrussell"
 else
-    export ZSH_THEME="fino"
+    export ZSH_THEME="bullet-train"
 fi
 
 # Uncomment the following line to use case-sensitive completion.
@@ -23,7 +18,7 @@ fi
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
@@ -62,12 +57,11 @@ fi
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
+source $ZSH/oh-my-zsh.sh
+
 # User configuration
 
-  export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
-
-source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -83,7 +77,7 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -93,12 +87,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-[[ $COLORTERM = gnome-terminal && ! $TERM = screen-256color ]] && TERM=xterm-256color
-[[ $COLORTERM = gnome-terminal ]] && TERM=xterm-256color
-export PATH="/home/matt/anaconda2/bin:$PATH"
-# export PATH="/home/matt/anaconda3/bin:$PATH"
-export IMGUR_CLIENT_ID="b6adb993def56ad"
-
-if [[ -r ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh ]]; then
-	source ~/.local/lib/python2.7/site-packages/powerline/bindings/zsh/powerline.zsh
-fi
