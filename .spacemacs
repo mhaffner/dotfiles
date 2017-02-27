@@ -3,9 +3,6 @@
 ;; It must be stored in your home directory.
 
 (defun dotspacemacs/layers ()
-  "Configuration Layers declaration.
-You should not put any user code in this function besides modifying the variable
-values."
   (setq-default
    dotspacemacs-distribution 'spacemacs
    dotspacemacs-configuration-layer-path '()
@@ -14,12 +11,13 @@ values."
      csv
      auto-completion
      emacs-lisp
+     html
      spacemacs-layouts
-     php
      git
      (mu4e :variables mu4e-account-alist t)
      markdown
-     org
+     (org :variables
+          org-enable-reveal-js-support t)
      python
      latex
      ess
@@ -39,6 +37,7 @@ values."
      forecast
      mu4e-alert
      ssh
+     ;ox-reveal
      helm-google
      smtpmail ;; necessary?
     )
@@ -128,8 +127,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (setq-default evil-escape-key-sequence "jk") ; set escape keybinding to "jk"
   (setq spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
         powerline-default-separator 'arrow
-        vc-follow-symlinks nil)
+        vc-follow-symlinks nil
+        org-reveal-root "file:///home/matt/git-repos/reveal.js")
   (display-time)
+  (set-fill-column 70)
   (add-hook 'ess-mode-hook 'linum-mode)
   (with-eval-after-load 'org ; must be evaluated after load to prevent version conflicts
     (add-hook 'org-mode-hook 'auto-fill-mode)
