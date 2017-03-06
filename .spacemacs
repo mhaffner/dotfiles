@@ -8,9 +8,10 @@
    dotspacemacs-configuration-layer-path '()
    dotspacemacs-configuration-layers
    '(
-     csv
      auto-completion
+     csv
      emacs-lisp
+     ess
      html
      spacemacs-layouts
      git
@@ -20,7 +21,6 @@
           org-enable-reveal-js-support t)
      python
      latex
-     ess
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -28,10 +28,7 @@
      ;; syntax-checking
      ;; version-control
      )
-   ;; List of additional packages that will be installed without being
-   ;; wrapped in a layer. If you need some configuration for these
-   ;; packages, then consider creating a layer. You can also put the
-   ;; configuration in `dotspacemacs/user-config'.
+
    dotspacemacs-additional-packages
    '(
      forecast
@@ -46,13 +43,6 @@
    dotspacemacs-delete-orphan-packages t))
 
 (defun dotspacemacs/init ()
-  "Initialization function.
-This function is called at the very startup of Spacemacs initialization
-before layers configuration.
-You should not put any user code in there besides modifying the variable
-values."
-  ;; This setq-default sexp is an exhaustive list of all the supported
-  ;; spacemacs settings.
   (setq-default
    dotspacemacs-elpa-https t
    dotspacemacs-elpa-timeout 5
@@ -65,10 +55,13 @@ values."
    dotspacemacs-scratch-mode 'Fundamental
    dotspacemacs-themes '(
                          monokai
+                         gruvbox
+                         badwolf
                          spacemacs-dark
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
-   dotspacemacs-default-font (if (string-equal (system-name) "panopticon") ;; use different size font on laptop/desktop
+   ;; use different size font on laptop/desktop
+   dotspacemacs-default-font (if (string-equal (system-name) "panopticon") 
                                  '("Source Code Pro"
                                    :size 16
                                    :weight normal
@@ -116,20 +109,15 @@ values."
    ))
 
 (defun dotspacemacs/user-init ()
-  "Initialization function for user code.
-It is called immediately after `dotspacemacs/init', before layer configuration
-executes.
- This function is mostly useful for variables that need to be set
-before packages are loaded. If you are unsure, you should try in setting them in
-`dotspacemacs/user-config' first."
   )
 
 (defun dotspacemacs/user-config ()
   (setq-default evil-escape-key-sequence "jk") ; set escape keybinding to "jk"
-  (setq spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
-        powerline-default-separator 'arrow
-        vc-follow-symlinks nil
-        org-reveal-root "file:///home/matt/git-repos/reveal.js")
+  (setq
+   spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
+   powerline-default-separator 'arrow
+   vc-follow-symlinks nil
+   org-reveal-root "file:///home/matt/git-repos/reveal.js")
   (display-time)
   (set-fill-column 70)
   (add-hook 'ess-mode-hook 'linum-mode)
@@ -147,10 +135,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (with-eval-after-load 'flyspell
     (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
 
-  (setq forecast-latitude 36.11236
-        forecast-longitude -97.07025
-        forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
-        forecast-units "us")
+  (setq
+   calendar-latitude 36.11236
+   calendar-location-name "Stillwater, Oklahoma"
+   calendar-longitude -97.07025
+   forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
+   forecast-units "si")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; mu4e
@@ -195,6 +185,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
         smtpmail-default-smtp-server "smtp.gmail.com"
         smtpmail-smtp-server "smtp.gmail.com"
         smtpmail-smtp-service 587)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Different settings for various machines
@@ -202,35 +193,15 @@ before packages are loaded. If you are unsure, you should try in setting them in
     (progn
       ;; Set startup layout
       (spacemacs/layout-triple-columns)
-      (select-window-1)
+      (winum-select-window-1)
       (spacemacs/find-dotfile)
-      (select-window-2)
+      (winum-select-window-2)
       (find-file "~/Sync/agenda/todo-list.org")
       (split-window-below-and-focus)
       (eshell)
-      (select-window-4)
+      (winum-select-window-4)
       (forecast)
       (shrink-window-horizontally 15))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (monokai-theme yapfify ws-butler window-numbering which-key web-mode volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit ssh spacemacs-theme spaceline smeargle slim-mode scss-mode sass-mode restart-emacs rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paradox ox-reveal ov orgit org-projectile org-present org-pomodoro org-plus-contrib org-download org-bullets open-junk-file neotree mu4e-maildirs-extension mu4e-alert move-text mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum live-py-mode linum-relative link-hint less-css-mode info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-google helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md forecast flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-object-popup ess-R-data-view emmet-mode elisp-slime-nav dumb-jump define-word cython-mode csv-mode company-web company-statistics company-auctex company-anaconda column-enforce-mode clean-aindent-mode auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
