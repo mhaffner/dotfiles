@@ -13,6 +13,7 @@
      emacs-lisp
      ess
      html
+     javascript
      spacemacs-layouts
      git
      (mu4e :variables mu4e-account-alist t)
@@ -68,7 +69,7 @@
                                    :width normal
                                    :powerline-scale 1.00)
                                  '("Source Code Pro"
-                                   :size 20
+                                   :size 16
                                    :weight normal
                                    :width normal
                                    :powerline-scale 1.00))
@@ -117,7 +118,7 @@
    spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
    powerline-default-separator 'arrow
    vc-follow-symlinks nil
-   org-reveal-root "file:///home/matt/git-repos/reveal.js")
+   org-reveal-root "file:///home/matt/git-repos/presentations")
   (display-time)
   (set-fill-column 70)
   (add-hook 'ess-mode-hook 'linum-mode)
