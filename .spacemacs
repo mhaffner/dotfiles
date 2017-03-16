@@ -118,7 +118,7 @@
    spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
    powerline-default-separator 'arrow
    vc-follow-symlinks nil
-   org-reveal-root "file:///home/matt/git-repos/presentations")
+   org-reveal-root "")
   (display-time)
   (set-fill-column 70)
   (add-hook 'ess-mode-hook 'linum-mode)
@@ -127,6 +127,7 @@
     (add-hook 'org-mode-hook 'abbrev-mode)
     (add-hook 'org-mode-hook 'flyspell-mode)
     (add-hook 'ess-mode-hook 'linum-mode)
+    (add-hook 'org-mode-hook (lambda () (setq fill-column 70)))
     (setq org-agenda-files '("~/MEGA/megasync/agenda"))
     (setq org-startup-indented t)
     (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n,\"")
