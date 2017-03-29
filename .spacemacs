@@ -118,10 +118,13 @@
    spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
    powerline-default-separator 'arrow
    vc-follow-symlinks nil
-   org-reveal-root "file:///home/matt/git-repos/presentations")
+   org-reveal-root "")
   (display-time)
   (set-fill-column 70)
   (add-hook 'ess-mode-hook 'linum-mode)
+  (if (string-equal system-name "manjaro")
+      (fancy-battery-mode))
+  (add-to-list 'auto-mode-alist '("README" . org-mode))
   (with-eval-after-load 'org ; must be evaluated after load to prevent version conflicts
     (add-hook 'org-mode-hook 'auto-fill-mode)
     (add-hook 'org-mode-hook 'abbrev-mode)
@@ -136,6 +139,7 @@
   (with-eval-after-load 'flyspell
     (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
 
+;; these need to be separate from other setq's?
   (setq
    calendar-latitude 36.11236
    calendar-location-name "Stillwater, Oklahoma"
