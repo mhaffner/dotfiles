@@ -130,6 +130,7 @@
     (add-hook 'org-mode-hook 'abbrev-mode)
     (add-hook 'org-mode-hook 'flyspell-mode)
     (add-hook 'ess-mode-hook 'linum-mode)
+    (add-hook 'org-mode-hook (lambda () (setq fill-column 70)))
     (setq org-agenda-files '("~/MEGA/megasync/agenda"))
     (setq org-startup-indented t)
     (setcar (nthcdr 2 org-emphasis-regexp-components) " \t\r\n,\"")
