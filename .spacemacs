@@ -8,26 +8,33 @@
    dotspacemacs-configuration-layer-path '()
    dotspacemacs-configuration-layers
    '(
-     auto-completion
      csv
      emacs-lisp
      ess
+     ruby
      html
      javascript
+     yaml
      spacemacs-layouts
      git
-     (mu4e :variables mu4e-account-alist t)
-     markdown
-     (org :variables
-          org-enable-reveal-js-support t)
      python
      latex
-     ;; (shell :variables
-     ;;        shell-default-height 30
-     ;;        shell-default-position 'bottom)
-     ;; spell-checking
-     ;; syntax-checking
-     ;; version-control
+     markdown
+     spell-checking
+     syntax-checking
+     version-control
+     (mu4e :variables
+           mu4e-account-alist t)
+     (org :variables
+          org-enable-reveal-js-support t)
+     (auto-completion :variables
+                      auto-completion-return-key-behavior nil
+                      auto-completion-tab-key-behavior 'complete)
+     (shell :variables
+            shell-default-shell 'eshell
+            shell-default-full-span nil
+            shell-default-height 30
+            shell-default-position 'bottom)
      )
 
    dotspacemacs-additional-packages
@@ -37,6 +44,7 @@
      ssh
      ;ox-reveal
      helm-google
+     org-publish
      ov
      smtpmail ;; necessary?
     )
@@ -56,9 +64,9 @@
    dotspacemacs-scratch-mode 'Fundamental
    dotspacemacs-themes '(
                          monokai
+                         spacemacs-dark
                          gruvbox
                          badwolf
-                         spacemacs-dark
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
    ;; use different size font on laptop/desktop
@@ -110,6 +118,7 @@
    ))
 
 (defun dotspacemacs/user-init ()
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -130,6 +139,7 @@
     (add-hook 'org-mode-hook 'abbrev-mode)
     (add-hook 'org-mode-hook 'flyspell-mode)
     (add-hook 'ess-mode-hook 'linum-mode)
+    ;(add-to-list 'org-export-backends 'org) ; doesn't work
     (add-hook 'org-mode-hook (lambda () (setq fill-column 70)))
     (setq org-agenda-files '("~/MEGA/megasync/agenda"))
     (setq org-startup-indented t)
@@ -195,19 +205,91 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Different settings for various machines
-(if (string-equal (system-name) "panopticon")
-    (progn
-      ;; Set startup layout
-      (spacemacs/layout-triple-columns)
-      (winum-select-window-1)
-      (spacemacs/find-dotfile)
-      (winum-select-window-2)
-      (find-file "~/Sync/agenda/todo-list.org")
-      (split-window-below-and-focus)
-      (eshell)
-      (winum-select-window-4)
-      (forecast)
-      (shrink-window-horizontally 15))))
+;;(if (string-equal (system-name) "panopticon")
+;;    (progn
+;;      ;; Set startup layout
+;;      (spacemacs/layout-triple-columns)
+;;      (winum-select-window-1)
+;;      (spacemacs/find-dotfile)
+;;      (winum-select-window-2)
+;;      (find-file "~/Sync/agenda/todo-list.org")
+;;      (split-window-below-and-focus)
+;;      (eshell)
+;;      (winum-select-window-4)
+;;      (forecast)
+;;      (shrink-window-horizontally 15)))
+
+;; For jekyll
+;;(setq org-publish-project-alist
+;;      '(("org-blog"
+;;         ;; Path to your org files.
+;;         :base-directory "~/git-repos/blog/org/"
+;;         :base-extension "org"
+;;
+;;         ;; Path to your Jekyll project.
+;;         :publishing-directory "~/git-repos/blog/"
+;;         :recursive t
+;;         :publishing-function org-html-publish-to-html
+;;         :headline-levels 4
+;;         :html-extension "html"
+;;         :body-only t ;; Only export section between <body> </body>
+;;         :table-of-contents nil)
+;;
+;;        ("org-static-blog"
+;;         :base-directory "~/git-repos/blog/org"
+;;         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+;;         :publishing-directory "~/git-repos/blog/"
+;;         :recursive t
+;;         :publishing-function org-publish-attachment
+;;         :table-of-contents nil)
+;;
+;;        ("blog" :components ("org-blog" "org-static-blog"))))
+
+(setq org-publish-project-alist
+      '(("org-blog"
+         ;; Path to your org files.
+         :base-directory "~/git-repos/mhaffner.github.io/org/"
+         :base-extension "org"
+
+         ;; Path to your Jekyll project.
+         :publishing-directory "~/git-repos/mhaffner.github.io/jekyll/"
+         :recursive t
+         :publishing-function org-html-publish-to-html
+         :headline-levels 4
+         :html-extension "html"
+         :body-only t ;; Only export section between <body> </body>
+         :table-of-contents nil)
+
+        ("org-static-blog"
+         :base-directory "~/git-repos/mhaffner.github.io/org/"
+         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
+         :publishing-directory "~/git-repos/mhaffner.github.io/"
+         :recursive t
+         :publishing-function org-publish-attachment
+         :table-of-contents nil)
+
+        ("blog" :components ("org-blog" "org-static-blog"))))
+)
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (rvm ruby-tools ruby-test-mode rubocop rspec-mode robe rbenv rake minitest chruby bundler inf-ruby xterm-color shell-pop multi-term git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck eshell-z eshell-prompt-extras esh-help diff-hl auto-dictionary powerline spinner org-plus-contrib ht alert log4e gntp markdown-mode skewer-mode simple-httpd json-snatcher json-reformat multiple-cursors js2-mode hydra parent-mode window-purpose imenu-list projectile pkg-info epl google request haml-mode autothemer gitignore-mode flx magit magit-popup git-commit with-editor smartparens iedit anzu evil goto-chg undo-tree highlight ctable ess julia-mode diminish web-completion-data dash-functional tern company bind-map bind-key yasnippet packed auctex anaconda-mode pythonic f dash s helm avy helm-core async auto-complete popup yaml-mode zenburn-theme yapfify ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit ssh spaceline smeargle slim-mode scss-mode sass-mode restart-emacs rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode pcre2el paradox ox-reveal ov orgit org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree mu4e-maildirs-extension mu4e-alert move-text monokai-theme mmm-mode markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-google helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag gruvbox-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link gh-md fuzzy forecast flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-object-popup ess-R-data-view emmet-mode elisp-slime-nav dumb-jump define-word cython-mode csv-mode company-web company-tern company-statistics company-auctex company-anaconda column-enforce-mode coffee-mode clean-aindent-mode badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
