@@ -1,0 +1,2 @@
+## -*- R -*-
+setwd("/home/matt")
