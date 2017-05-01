@@ -27,14 +27,11 @@
            mu4e-account-alist t)
      (org :variables
           org-enable-reveal-js-support t)
-     (auto-completion :variables
-                      auto-completion-return-key-behavior nil
-                      auto-completion-tab-key-behavior 'complete)
      (shell :variables
             shell-default-shell 'eshell
-            shell-default-full-span nil
             shell-default-height 30
-            shell-default-position 'bottom)
+            shell-default-position 'bottom
+            shell-default-full-span nil)
      )
 
    dotspacemacs-additional-packages
@@ -129,7 +126,9 @@
    vc-follow-symlinks nil
    org-reveal-root "")
   (display-time)
+  (set-default 'truncate-lines t)
   (set-fill-column 70)
+  (setq ess-ask-for-ess-directory nil)
   (add-hook 'ess-mode-hook 'linum-mode)
   (if (string-equal system-name "manjaro")
       (fancy-battery-mode))
@@ -204,21 +203,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Different settings for various machines
-;;(if (string-equal (system-name) "panopticon")
-;;    (progn
-;;      ;; Set startup layout
-;;      (spacemacs/layout-triple-columns)
-;;      (winum-select-window-1)
-;;      (spacemacs/find-dotfile)
-;;      (winum-select-window-2)
-;;      (find-file "~/Sync/agenda/todo-list.org")
-;;      (split-window-below-and-focus)
-;;      (eshell)
-;;      (winum-select-window-4)
-;;      (forecast)
-;;      (shrink-window-horizontally 15)))
-
 ;; For jekyll
 ;;(setq org-publish-project-alist
 ;;      '(("org-blog"
@@ -269,7 +253,62 @@
          :table-of-contents nil)
 
         ("blog" :components ("org-blog" "org-static-blog"))))
-)
+
+
+;; Define custom keybindings
+  (defun add-src-elements ()
+    "Add #+BEGIN/END _SRC elements easier"
+    (interactive)
+    (insert "#+BEGIN_SRC\n#+END_SRC")
+    (forward-line -1)
+    (evil-append-line 1)
+    (insert " ")
+
+  (global-set-key (kbd "C-c S") 'add-src-elements))
+
+;; Custom layouts
+  (spacemacs|define-custom-layout "home-desktop"
+    :binding "h d"
+    :body
+    (spacemacs/find-dotfile)
+    (spacemacs/layout-triple-columns)
+    (winum-select-window-2)
+    (find-file "~/Sync/agenda/todo-list.org")
+    (spacemacs/default-pop-shell)
+    (winum-select-window-4)
+    (forecast)
+    (shrink-window-horizontally 20))
+
+  (spacemacs|define-custom-layout "home-laptop"
+    :binding "h l"
+    :body
+    (spacemacs/find-dotfile)
+    (find-file "~/Sync/agenda/todo-list.org")
+    (split-window-right-and-focus)
+    (spacemacs/default-pop-shell)
+    (winum-select-window-2)
+    (forecast))
+
+  (spacemacs|define-custom-layout "shp2nosql"
+    :binding "s"
+    :body
+    (find-file "~/git-repos/shp2nosql/README")
+    (split-window-right-and-focus)
+    (find-file "~/git-repos/shp2nosql/bin/shp2es")
+    (find-file "shp2mongo")
+    (winum-select-window-1)
+    (spacemacs/default-pop-shell))
+
+  (spacemacs|define-custom-layout "non-english-tweets"
+    :binding "n"
+    :body
+    (R)
+    (find-file "~/git-repos/non-english-tweets/README.org")
+    (split-window-right-and-focus)
+    (find-file "~/git-repos/non-english-tweets/statistical-analysis/data-preparation.R")
+    (find-file "regression-analysis.R")
+    (winum-select-window-1)
+    (spacemacs/default-pop-shell)))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
