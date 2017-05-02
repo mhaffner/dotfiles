@@ -262,9 +262,9 @@
     (insert "#+BEGIN_SRC\n#+END_SRC")
     (forward-line -1)
     (evil-append-line 1)
-    (insert " ")
+    (insert " "))
 
-  (global-set-key (kbd "C-c S") 'add-src-elements))
+  (global-set-key (kbd "C-c S") 'add-src-elements)
 
 ;; Custom layouts
   (spacemacs|define-custom-layout "home-desktop"
