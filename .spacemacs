@@ -277,6 +277,7 @@
     (spacemacs/default-pop-shell)
     (winum-select-window-4)
     (forecast)
+    (persp-add-buffer (buffer-name))
     (shrink-window-horizontally 20))
 
   (spacemacs|define-custom-layout "home-laptop"
@@ -309,6 +310,25 @@
     (find-file "regression-analysis.R")
     (winum-select-window-1)
     (spacemacs/default-pop-shell)))
+
+  (defun count-words-in-doc-section ()
+    "This function counts the number of words in the section of a
+  document. It may be useful when a manuscript's word count is
+  limiting and you are working in an org-file with much more than
+  just the document's text (e.g. you have notes, an outline, etc.).
+  It looks for the tags 'begin_region_word_count' and
+  'end_region_word_count' and prints the number of words two lines
+  after the tag region_word_count_print."
+    (interactive)
+    (save-excursion
+      (beginning-of-buffer)
+      (let* ((section-beginning
+              (search-forward "start_region_word_count"))
+             (section-end
+              (search-forward "end_region_word_count"))
+             (word-count
+              (count-region section-beginning section-end)))
+        (print word-count))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
