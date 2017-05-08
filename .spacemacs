@@ -264,7 +264,8 @@
     (evil-append-line 1)
     (insert " "))
 
-  (global-set-key (kbd "C-c S") 'add-src-elements)
+; define key in org-mode only
+  (define-key org-mode-map (kbd "C-c s") 'add-src-elements)
 
 ;; Custom layouts
   (spacemacs|define-custom-layout "home-desktop"
