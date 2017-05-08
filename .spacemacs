@@ -310,7 +310,7 @@
     (find-file "~/git-repos/non-english-tweets/statistical-analysis/data-preparation.R")
     (find-file "regression-analysis.R")
     (winum-select-window-1)
-    (spacemacs/default-pop-shell)))
+    (spacemacs/default-pop-shell))
 
   (defun count-words-in-doc-section ()
     "This function counts the number of words in the section of a
@@ -329,7 +329,7 @@
               (search-forward "end_region_word_count"))
              (word-count
               (count-region section-beginning section-end)))
-        (print word-count))))
+        (print word-count)))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
