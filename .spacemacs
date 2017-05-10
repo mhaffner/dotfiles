@@ -331,9 +331,12 @@
              (word-count
               (count-region section-beginning section-end)))
         (print word-count))))
+
 (setq org-ref-default-bibliography '("~/Sync/references/references.bib")
       org-ref-pdf-directory "~/Sync/references/pdfs"
       org-ref-bibliography-notes "~/Sync/references/notes.org")
+; enables bibliography at end of document
+(setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f")) 
 )
 
 ;; Do not write anything past this comment. This is where Emacs will
