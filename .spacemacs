@@ -8,6 +8,9 @@
    dotspacemacs-configuration-layer-path '()
    dotspacemacs-configuration-layers
    '(
+     (auto-completion :variables
+                      auto-completion-return-key-behavior 'nil
+                      auto-completion-tab-key-behavior 'complete)
      csv
      emacs-lisp
      ess
@@ -17,7 +20,6 @@
      yaml
      spacemacs-layouts
      git
-     autocomplete
      bibtex
      python
      latex
@@ -43,7 +45,6 @@
      ssh
      ;ox-reveal
      helm-google
-     org-publish
      ov
      smtpmail ;; necessary?
     )
@@ -171,6 +172,12 @@
           org-ref-bibliography-notes "~/Sync/references/notes.org")
                                         ; enables bibliography at end of document
     (setq org-latex-pdf-process '("latexmk -xelatex -quiet -shell-escape -f %f"))
+    ;; this below may be needed instead 
+;    (setq org-latex-pdf-process
+;          '("pdflatex -interaction nonstopmode -output-directory %o %f"
+;            "bibtex %b"
+;            "pdflatex -interaction nonstopmode -output-directory %o %f"
+;            "pdflatex -interaction nonstopmode -output-directory %o %f"))
     (add-hook 'org-mode-hook (lambda () (setq fill-column 70)))
     (setq org-agenda-files '("~/MEGA/megasync/agenda"))
     (setq org-startup-indented t)
