@@ -1,0 +1,21 @@
+# ignore all files in root dir
+/*
+
+# files in root dir
+!.gitignore
+!.bashrc
+
+# .vim/
+!.vim
+
+# .config dir
+!.config/
+.config/*
+!.config/i3/
+!.config/i3blocks/
+!.config/termite/
+!.config/ranger/
+
+# ranger
+.config/ranger/*
+!.config/ranger/rc.conf
