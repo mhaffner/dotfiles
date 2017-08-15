@@ -4,6 +4,8 @@
 # files in root dir
 !.gitignore
 !.bashrc
+!.spacemacs
+!.Rprofile
 
 # .vim/
 !.vim
