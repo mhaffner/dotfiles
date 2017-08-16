@@ -75,7 +75,7 @@
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
    ;; use different size font on laptop/desktop
-   dotspacemacs-default-font (if (string-equal (system-name) "panopticon") 
+   dotspacemacs-default-font (if (string-equal (system-name) "panopticon")
                                  '("Source Code Pro"
                                    :size 16
                                    :weight normal
@@ -127,6 +127,9 @@
   )
 
 (defun dotspacemacs/user-config ()
+
+  ; use transparency
+  (spacemacs/toggle-transparency)
 
   ; disable smart-parens everywhere
   (remove-hook 'prog-mode-hook #'smartparens-mode)
