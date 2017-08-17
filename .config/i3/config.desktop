@@ -1,3 +1,4 @@
+################################################################################
 # i3 config file (desktop specific settings)
 #
 # Font for window titles. Will also be used by the bar unless a different font
@@ -21,9 +22,9 @@ bindcode $mod+72 exec xbacklight -inc 5
 bindcode $mod+71 exec xbacklight -dec 5 
 
 # volume controls
-bindcode $mod+122 exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindcode $mod+123 exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindcode $mod+121 exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+bindcode 123 exec --no-startup-id pactl set-sink-volume 0 +5%
+bindcode 122 exec --no-startup-id pactl set-sink-volume 0 -5%
+bindcode 121 exec --no-startup-id pactl set-sink-mute 0 toggle
 
 # set bg image
 exec --no-startup-id feh --randomize --bg-center ~/Sync/pictures/backgrounds/2560x1080/space/*
