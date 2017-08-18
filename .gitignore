@@ -16,9 +16,6 @@
 
 # i3
 !.config/i3/
-.config/i3/*
-!.config/i3/config-generation.sh
-
 !.config/i3blocks/
 !.config/termite/
 !.config/ranger/
