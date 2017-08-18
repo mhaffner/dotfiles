@@ -18,6 +18,9 @@
 !.config/i3/
 .config/i3/*
 !.config/i3/config-generation.sh
+!.config/i3/config.base
+!.config/i3/config.desktop
+!.config/i3/config.laptop
 
 # i3blocks
 !.config/i3blocks/
