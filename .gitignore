@@ -16,10 +16,16 @@
 
 # i3
 !.config/i3/
+.config/i3/*
+!.config/i3/config-generation.sh
+
+# i3blocks
 !.config/i3blocks/
+
+# termite
 !.config/termite/
-!.config/ranger/
 
 # ranger
+!.config/ranger/
 .config/ranger/*
 !.config/ranger/rc.conf
