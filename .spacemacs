@@ -84,7 +84,7 @@
                                    :width normal
                                    :powerline-scale 1.00)
                                  '("Source Code Pro"
-                                   :size 16
+                                   :size 20
                                    :weight normal
                                    :width normal
                                    :powerline-scale 1.00))

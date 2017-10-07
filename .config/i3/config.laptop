@@ -23,11 +23,6 @@ bindsym $mod+d exec dmenu_run -fn 'SourceCodePro:pixelsize=22'
 bindcode $mod+72 exec xbacklight -inc 5 
 bindcode $mod+71 exec xbacklight -dec 5 
 
-# volume controls
-bindcode $mod+96 exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
-bindcode $mod+95 exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
-bindcode $mod+76 exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
-
 # set bg image
 exec --no-startup-id feh --randomize --bg-center ~/Sync/pictures/backgrounds/1920x1080/space/*
 
