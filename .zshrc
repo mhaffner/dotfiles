@@ -10,7 +10,7 @@
 if [ -n "$INSIDE_EMACS" ]; then
     export ZSH_THEME="robbyrussell"
 else
-    export ZSH_THEME="bullet-train"
+    export ZSH_THEME="agnoster"
 fi
 
 # Uncomment the following line to use case-sensitive completion.
