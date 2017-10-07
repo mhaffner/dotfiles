@@ -29,6 +29,7 @@
      markdown
      rust
      spell-checking
+     sql
      syntax-checking
      version-control
      (mu4e :variables
@@ -129,6 +130,9 @@
 
 (defun dotspacemacs/user-config ()
 
+  ; use US English dictionary
+  (setq ispell-local-dictionary "en_US")
+
   ; use transparency
   (spacemacs/toggle-transparency)
 
@@ -138,7 +142,7 @@
   ; set a liberal scroll margin
   (setq scroll-margin 20)
 
-  ; Define custom keybindings
+  ; Define custom functions
   (defun add-src-elements ()
     "Add #+BEGIN/END _SRC elements easier"
     (interactive)
@@ -186,7 +190,6 @@
 ;          '("pdflatex -interaction nonstopmode -output-directory %o %f"
 ;            "bibtex %b"
 ;            "pdflatex -interaction nonstopmode -output-directory %o %f"
-;            "pdflatex -interaction nonstopmode -output-directory %o %f"))
     (add-hook 'org-mode-hook (lambda () (setq fill-column 70)))
     (setq org-agenda-files '("~/MEGA/megasync/agenda"))
     (setq org-startup-indented t)
@@ -194,12 +197,14 @@
     (setcar (nthcdr 4 org-emphasis-regexp-components) 100)
     (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
     )
+
   (with-eval-after-load 'helm
   (define-key helm-map (kbd "C-d") 'helm-next-page)
   (define-key helm-map (kbd "C-u") 'helm-previous-page))
 
   (with-eval-after-load 'flyspell
     (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
+
   ; these need to be separate from other setq's?
   (setq
    calendar-latitude 36.11236
@@ -207,6 +212,9 @@
    calendar-longitude -97.07025
    forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
    forecast-units "si")
+
+  (with-eval-after-load 'r
+    (add-hook 'ess-mode-hook (lambda () (setq scroll-margin 1))))
 
 ;; mu4e
   (setq mu4e-account-alist
@@ -370,23 +378,3 @@
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (slack emojify circe oauth2 websocket dockerfile-mode docker tablist docker-tramp bongo noctilux-theme dracula-theme toml-mode racer flycheck-rust seq cargo rust-mode omnisharp shut-up csharp-mode synonyms zenburn-theme yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toc-org tagedit ssh spaceline smeargle slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv rake rainbow-delimiters pyvenv pytest pyenv-mode py-isort pug-mode popwin pip-requirements persp-mode paradox ox-reveal ov orgit org-ref org-projectile org-present org-pomodoro org-download org-bullets open-junk-file neotree multi-term mu4e-maildirs-extension mu4e-alert move-text monokai-theme mmm-mode minitest markdown-toc magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode json-mode js2-refactor js-doc info+ indent-guide hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-google helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag gruvbox-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy forecast flyspell-correct-helm flycheck-pos-tip flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-object-popup ess-R-data-view eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump diff-hl define-word cython-mode csv-mode company-web company-tern company-statistics company-auctex company-anaconda column-enforce-mode coffee-mode clean-aindent-mode chruby bundler badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
