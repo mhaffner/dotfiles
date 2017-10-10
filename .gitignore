@@ -41,5 +41,4 @@
 .config/mpd/*
 !.config/mpd/mpd.conf
 !.config/mpd/database
-!.config/mpd/state
 !.config/mpd/sticker
