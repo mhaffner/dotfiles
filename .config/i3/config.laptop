@@ -9,7 +9,7 @@ exec --no-startup-id xmodmap ~/.XmodMap
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
-font pango:SourceCodePro 16
+font pango:SourceCodePro 14
 
 # start dmenu (a program launcher)
 # -fn sets font info
