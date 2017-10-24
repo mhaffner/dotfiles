@@ -12,6 +12,9 @@
 ;                      auto-completion-return-key-behavior 'nil
 ;                      auto-completion-tab-key-behavior 'complete
 ;                      disabled-for 'eshell)
+     (ranger :variables
+              ranger-show-preview t)
+     pdf-tools
      csv
      csharp
      docker
@@ -32,8 +35,6 @@
      sql
      syntax-checking
      version-control
-     (mu4e :variables
-           mu4e-account-alist t)
      (org :variables
           org-enable-reveal-js-support t)
      (shell :variables
@@ -47,9 +48,8 @@
    '(
      bongo
      forecast
-     mu4e-alert
+     ;mu4e-alert
      ssh
-     ;ox-reveal
      helm-google
      ov
      smtpmail ;; necessary?
@@ -142,6 +142,13 @@
   ; set a liberal scroll margin
   (setq scroll-margin 20)
 
+  ; but not in shells, of course
+  (with-eval-after-load 'r
+    (add-hook 'ess-mode-hook (lambda () (setq scroll-margin 1))))
+
+  (with-eval-after-load 'eshell
+    (add-hook 'eshell-mode-hook (lambda () (setq scroll-margin 1))))
+
   ; Define custom functions
   (defun add-src-elements ()
     "Add #+BEGIN/END _SRC elements easier"
@@ -157,10 +164,9 @@
   ; set some variables
   (setq
    spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
-   powerline-default-separator 'arrow
+   powerline-default-separator 'arrow-fade
    vc-follow-symlinks nil
    org-reveal-root "")
-  (display-time)
   (set-default 'truncate-lines t)
   (set-fill-column 70)
   (setq bibtex-completion-additional-search-fields '(tags))
@@ -212,104 +218,48 @@
    calendar-longitude -97.07025
    forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
    forecast-units "si")
-
-  (with-eval-after-load 'r
-    (add-hook 'ess-mode-hook (lambda () (setq scroll-margin 1))))
-
 ;; mu4e
-  (setq mu4e-account-alist
-        '(("gmail"
-           (mu4e-sent-messages-behavior delete)
-           (mu4e-sent-folder "/[Gmail].Sent Mail")
-           (mu4e-drafts-folder "/[Gmail].Drafts")
-           (mu4e-trash-folder "/[Gmail].Trash")
-           (user-mail-address "haffner.matthew.m@gmail.com")
-           (user-full-name "Matthew Haffner"))
-          ("osu"
-           (mu4e-sent-messages-behavior delete)
-           (mu4e-sent-folder "/[Gmail].Sent Mail")
-           (mu4e-drafts-folder "/[Gmail].Drafts")
-           (mu4e-trash-folder "/[Gmail].Trash")
-           (user-mail-address "matt.haffner@okstate.edu")
-           (user-full-name "Matthew Haffner"))))
-
-  (mu4e/mail-account-reset) ; activates account information
-
-  (setq mu4e-maildir "~/Maildir"
-        mu4e-get-mail-command "mbsync -a"
-        ; mu4e-update-interval 30
-        mu4e-compose-signature-auto-include t
-        mu4e-view-show-images t
-        mu4e-view-show-addresses t
-        mu4e-get-mail-command "offlineimap"
-        mu4e-compose-signature
-        (concat "Matthew Haffner\n"
-                "PhD Student/Graduate Research Assistant\n"
-                "Department of Geography\n"
-                "Oklahoma State University"))
-
-  ;; For sending mail
-  ;(require 'smtpmail)
-  (setq message-send-mail-function 'smtpmail-send-it
-        starttls-use-gnutls t
-        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-        smtpmail-auth-credentials
-        '(("smtp.gmail.com" 587 "haffner.matthew.m@gmail.com" nil))
-        smtpmail-default-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-server "smtp.gmail.com"
-        smtpmail-smtp-service 587)
-
-;; For jekyll
-;;(setq org-publish-project-alist
-;;      '(("org-blog"
-;;         ;; Path to your org files.
-;;         :base-directory "~/git-repos/blog/org/"
-;;         :base-extension "org"
+;;  (setq mu4e-account-alist
+;;        '(("gmail"
+;;           (mu4e-sent-messages-behavior delete)
+;;           (mu4e-sent-folder "/[Gmail].Sent Mail")
+;;           (mu4e-drafts-folder "/[Gmail].Drafts")
+;;           (mu4e-trash-folder "/[Gmail].Trash")
+;;           (user-mail-address "haffner.matthew.m@gmail.com")
+;;           (user-full-name "Matthew Haffner"))
+;;          ("osu"
+;;           (mu4e-sent-messages-behavior delete)
+;;           (mu4e-sent-folder "/[Gmail].Sent Mail")
+;;           (mu4e-drafts-folder "/[Gmail].Drafts")
+;;           (mu4e-trash-folder "/[Gmail].Trash")
+;;           (user-mail-address "matt.haffner@okstate.edu")
+;;           (user-full-name "Matthew Haffner"))))
 ;;
-;;         ;; Path to your Jekyll project.
-;;         :publishing-directory "~/git-repos/blog/"
-;;         :recursive t
-;;         :publishing-function org-html-publish-to-html
-;;         :headline-levels 4
-;;         :html-extension "html"
-;;         :body-only t ;; Only export section between <body> </body>
-;;         :table-of-contents nil)
+;;  (mu4e/mail-account-reset) ; activates account information
 ;;
-;;        ("org-static-blog"
-;;         :base-directory "~/git-repos/blog/org"
-;;         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-;;         :publishing-directory "~/git-repos/blog/"
-;;         :recursive t
-;;         :publishing-function org-publish-attachment
-;;         :table-of-contents nil)
+;;  (setq mu4e-maildir "~/Maildir"
+;;        mu4e-get-mail-command "mbsync -a"
+;;        ; mu4e-update-interval 30
+;;        mu4e-compose-signature-auto-include t
+;;        mu4e-view-show-images t
+;;        mu4e-view-show-addresses t
+;;        mu4e-get-mail-command "offlineimap"
+;;        mu4e-compose-signature
+;;        (concat "Matthew Haffner\n"
+;;                "PhD Student/Graduate Research Assistant\n"
+;;                "Department of Geography\n"
+;;                "Oklahoma State University"))
 ;;
-;;        ("blog" :components ("org-blog" "org-static-blog"))))
-
-(setq org-publish-project-alist
-      '(("org-blog"
-         ;; Path to your org files.
-         :base-directory "~/git-repos/mhaffner.github.io/org/"
-         :base-extension "org"
-
-         ;; Path to your Jekyll project.
-         :publishing-directory "~/git-repos/mhaffner.github.io/jekyll/"
-         :recursive t
-         :publishing-function org-html-publish-to-html
-         :headline-levels 4
-         :html-extension "html"
-         :body-only t ;; Only export section between <body> </body>
-         :table-of-contents nil)
-
-        ("org-static-blog"
-         :base-directory "~/git-repos/mhaffner.github.io/org/"
-         :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf\\|php"
-         :publishing-directory "~/git-repos/mhaffner.github.io/"
-         :recursive t
-         :publishing-function org-publish-attachment
-         :table-of-contents nil)
-
-        ("blog" :components ("org-blog" "org-static-blog"))))
-
+;;  ;; For sending mail
+;;  ;(require 'smtpmail)
+;;  (setq message-send-mail-function 'smtpmail-send-it
+;;        starttls-use-gnutls t
+;;        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+;;        smtpmail-auth-credentials
+;;        '(("smtp.gmail.com" 587 "haffner.matthew.m@gmail.com" nil))
+;;        smtpmail-default-smtp-server "smtp.gmail.com"
+;;        smtpmail-smtp-server "smtp.gmail.com"
+;;        smtpmail-smtp-service 587)
 
 ;; Custom layouts
   (spacemacs|define-custom-layout "home-desktop"
