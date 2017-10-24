@@ -12,6 +12,7 @@
 
 # .vim/
 !.vim
+.vim/*
 
 # .config dir
 !.config/
