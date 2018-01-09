@@ -77,7 +77,7 @@
                          zenburn)
    dotspacemacs-colorize-cursor-according-to-state t
    ;; use different size font on laptop/desktop
-   dotspacemacs-default-font (if (string-equal (system-name) "panopticon")
+   dotspacemacs-default-font (if (string-equal (system-name) "960-evo")
                                  '("Source Code Pro"
                                    :size 16
                                    :weight normal
