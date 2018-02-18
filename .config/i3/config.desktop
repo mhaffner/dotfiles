@@ -21,5 +21,10 @@ bindsym $mod+d exec dmenu_run -fn 'SourceCodePro:pixelsize=16'
 bindcode $mod+72 exec xbacklight -inc 5 
 bindcode $mod+71 exec xbacklight -dec 5 
 
-# set bg image
+# set bg image randomly
 exec --no-startup-id feh --randomize --bg-center ~/Sync/pictures/backgrounds/2560x1080/space/*
+
+# explicitly set bg image on monitors
+# exec DISPLAY=:0.0 feh --bg-scale /home/matt/Sync/pictures/backgrounds/2560x1080/space-1.jpg
+# exec DISPLAY=:0.1 feh --bg-scale /home/matt/Sync/pictures/backgrounds/2560x1080/space-2.jpg
+
