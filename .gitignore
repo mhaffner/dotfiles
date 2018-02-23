@@ -10,6 +10,7 @@
 !.xinitrc
 !.aspell.en.pws
 !.aliases
+!.env
 
 # .vim/
 !.vim
