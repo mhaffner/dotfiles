@@ -88,6 +88,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+source $HOME/.aliases
+
 bindkey -v
 
 bindkey '^P' up-history
