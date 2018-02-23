@@ -1,0 +1,9 @@
+# -*- mode: sh -*-
+alias writer="libreoffice --writer"
+alias calc="libreoffice --calc"
+alias impress="libreoffice --impress"
+alias l="ls -lht"
+alias ncm=ncmpcpp
+alias weather="curl wttr.in"
+alias sys="glances -1"
+alias update="sudo pacman -Syu"
