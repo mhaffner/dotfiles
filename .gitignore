@@ -21,13 +21,19 @@
 !.config/
 .config/*
 
-# i3
+# i3wm
 !.config/i3/
 .config/i3/*
 !.config/i3/config-generation.sh
 !.config/i3/config.base
 !.config/i3/config.desktop
 !.config/i3/config.laptop
+
+# awesomwm
+!.config/awesome/
+.config/awesome/*
+!.config/awesome/theme.lua
+!.config/awesome/rc.lua
 
 # i3blocks
 !.config/i3blocks/
