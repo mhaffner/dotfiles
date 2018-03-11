@@ -12,6 +12,7 @@
 !.aliases
 !.env
 !.xsession
+!.XmodMap
 
 # .vim/
 !.vim
