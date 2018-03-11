@@ -1,4 +1,4 @@
 [submodule ".config/awesome/sharedtags"]
 	path = .config/awesome/sharedtags
 	url = https://github.com/drauthius/awesome-sharedtags
-	branch = master
+	branch = v4.0
