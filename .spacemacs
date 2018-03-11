@@ -8,6 +8,7 @@
    dotspacemacs-configuration-layer-path '()
    dotspacemacs-configuration-layers
    '(
+     lua
 ;     (auto-completion :variables
 ;                      auto-completion-return-key-behavior 'nil
 ;                      auto-completion-tab-key-behavior 'complete
@@ -84,7 +85,7 @@
                                    :width normal
                                    :powerline-scale 1.00)
                                  '("Source Code Pro"
-                                   :size 20
+                                   :size 16
                                    :weight normal
                                    :width normal
                                    :powerline-scale 1.00))
