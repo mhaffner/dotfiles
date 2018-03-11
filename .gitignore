@@ -30,9 +30,8 @@
 !.config/i3/config.desktop
 !.config/i3/config.laptop
 
-# awesomwm
+# awesomewm
 !.config/awesome/
-.config/awesome/*
 !.config/awesome/theme.lua
 !.config/awesome/rc.lua
 
