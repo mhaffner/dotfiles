@@ -15,6 +15,11 @@
 !.xsession
 !.XmodMap
 
+# .screenlayout
+!.screenlayout/
+.screenlayout/*
+!.screenlayout/hdmi-out.sh
+
 # .vim/
 !.vim
 .vim/*
@@ -53,7 +58,5 @@
 !.config/mpd/mpd.conf
 !.config/mpd/sticker
 
-# .screenlayout
-!.screenlayout/
-.screenlayout/*
-!.screenlayout/hdmi-out.sh
+# stumpwm
+!.config/stumpwm
