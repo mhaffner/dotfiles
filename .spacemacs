@@ -131,6 +131,9 @@
 
 (defun dotspacemacs/user-config ()
 
+  ; change org bullets
+  (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
+
   ; use US English dictionary
   (setq ispell-local-dictionary "en_US")
 
