@@ -14,6 +14,8 @@
     (when cmd
       (eval-command cmd t))))
 
+;; Remap the prefix key
+(set-prefix-key (kbd "C-t")) ;; Super is mapped to F20 in .XmodMap (keycodes 133 and 134)
 ;; Read some doc
 (define-key *root-map* (kbd "d") "exec gv")
 ;; Browse somewhere
@@ -70,7 +72,7 @@
   (0 t   nil :class "XTerm")
   (1 nil t   :class "aMule"))
 
-(define-frame-preference "Emacs"
-  (1 t t :restore "emacs-editing-dump" :title "...xdvi")
-  (0 t t :create "emacs-dump" :class "Emacs"))
+;; (define-frame-preference "Emacs"
+;;   (1 t t :restore "emacs-editing-dump" :title "...xdvi")
+;;   (0 t t :create "emacs-dump" :class "Emacs"))
 
