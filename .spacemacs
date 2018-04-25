@@ -132,6 +132,9 @@
 
 (defun dotspacemacs/user-config ()
 
+  ; modify default tramp method
+  (setq tramp-default-method "ssh")
+
   ; change org bullets
   (setq org-bullets-bullet-list '("■" "◆" "▲" "▶"))
 
@@ -217,10 +220,17 @@
     (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
 
   ; these need to be separate from other setq's?
+  ;(setq
+  ; calendar-latitude 36.11236
+  ; calendar-location-name "Stillwater, Oklahoma"
+  ; calendar-longitude -97.07025
+  ; forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
+  ; forecast-units "si")
+
   (setq
-   calendar-latitude 36.11236
-   calendar-location-name "Stillwater, Oklahoma"
-   calendar-longitude -97.07025
+   calendar-latitude 39.9273
+   calendar-location-name "Broomfield, Colorado"
+   calendar-longitude -105.1437
    forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
    forecast-units "si")
 ;; mu4e
