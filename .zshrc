@@ -101,4 +101,4 @@ bindkey '^r' history-incremental-search-backward
 export KEYTIMEOUT=5
 bindkey -M viins 'jk' vi-cmd-mode
 
-source $HOME/git-repos/git-subreop/.rc
+source $HOME/git-repos/git-subrepo/.rc
