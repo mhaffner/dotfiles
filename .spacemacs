@@ -10,10 +10,9 @@
    '(
      lua
      haskell
-;     (auto-completion :variables
-;                      auto-completion-return-key-behavior 'nil
-;                      auto-completion-tab-key-behavior 'complete
-;                      disabled-for 'eshell)
+     (auto-completion :variables
+                      auto-completion-return-key-behavior 'nil
+                      auto-completion-tab-key-behavior 'complete)
      (ranger :variables
               ranger-show-preview t)
      pdf-tools
@@ -43,7 +42,8 @@
             shell-default-shell 'eshell
             shell-default-height 35
             shell-default-position 'bottom
-            shell-default-full-span nil)
+            shell-default-full-span nil
+            :packages (not company))
      )
 
    dotspacemacs-additional-packages
@@ -169,6 +169,24 @@
     (evil-append-line 1)
     (insert " "))
 
+  (defun zoom-frm-in-four ()
+    "I always find myself zooming in and out on my laptop
+    depending upon whether or not I'm using an external screen.
+    From what I can tell, zoom-frm-out does not take arguments.
+    This function zooms in four times."
+    (interactive)
+    (dotimes (number 4 "Zoomed in four times")
+      (zoom-frm-in)))
+
+  (defun zoom-frm-out-four ()
+    "I always find myself zooming in and out on my laptop
+    depending upon whether or not I'm using an external screen.
+    From what I can tell, zoom-frm-in does not take arguments.
+    This function zooms out four times."
+    (interactive)
+    (dotimes (number 4 "Zoomed out four times")
+      (zoom-frm-out)))
+
   ;; some keybindings
   (setq-default evil-escape-key-sequence "jk") ; set escape keybinding to "jk"
 
@@ -230,55 +248,13 @@
   ; forecast-units "si")
 
   (setq
-   calendar-latitude 39.9273
-   calendar-location-name "Broomfield, Colorado"
-   calendar-longitude -105.1437
+   calendar-latitude 44.7967
+   calendar-location-name "Eau Claire, WI"
+   calendar-longitude -91.5000
    forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
    forecast-units "si")
-;; mu4e
-;;  (setq mu4e-account-alist
-;;        '(("gmail"
-;;           (mu4e-sent-messages-behavior delete)
-;;           (mu4e-sent-folder "/[Gmail].Sent Mail")
-;;           (mu4e-drafts-folder "/[Gmail].Drafts")
-;;           (mu4e-trash-folder "/[Gmail].Trash")
-;;           (user-mail-address "haffner.matthew.m@gmail.com")
-;;           (user-full-name "Matthew Haffner"))
-;;          ("osu"
-;;           (mu4e-sent-messages-behavior delete)
-;;           (mu4e-sent-folder "/[Gmail].Sent Mail")
-;;           (mu4e-drafts-folder "/[Gmail].Drafts")
-;;           (mu4e-trash-folder "/[Gmail].Trash")
-;;           (user-mail-address "matt.haffner@okstate.edu")
-;;           (user-full-name "Matthew Haffner"))))
-;;
-;;  (mu4e/mail-account-reset) ; activates account information
-;;
-;;  (setq mu4e-maildir "~/Maildir"
-;;        mu4e-get-mail-command "mbsync -a"
-;;        ; mu4e-update-interval 30
-;;        mu4e-compose-signature-auto-include t
-;;        mu4e-view-show-images t
-;;        mu4e-view-show-addresses t
-;;        mu4e-get-mail-command "offlineimap"
-;;        mu4e-compose-signature
-;;        (concat "Matthew Haffner\n"
-;;                "PhD Student/Graduate Research Assistant\n"
-;;                "Department of Geography\n"
-;;                "Oklahoma State University"))
-;;
-;;  ;; For sending mail
-;;  ;(require 'smtpmail)
-;;  (setq message-send-mail-function 'smtpmail-send-it
-;;        starttls-use-gnutls t
-;;        smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-;;        smtpmail-auth-credentials
-;;        '(("smtp.gmail.com" 587 "haffner.matthew.m@gmail.com" nil))
-;;        smtpmail-default-smtp-server "smtp.gmail.com"
-;;        smtpmail-smtp-server "smtp.gmail.com"
-;;        smtpmail-smtp-service 587)
 
-;; Custom layouts
+;; define some custom layouts
   (spacemacs|define-custom-layout "home-desktop"
     :binding "h d"
     :body
