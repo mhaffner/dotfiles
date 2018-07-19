@@ -12,10 +12,11 @@
      haskell
      (auto-completion :variables
                       auto-completion-return-key-behavior 'nil
-                      auto-completion-tab-key-behavior 'complete)
+                      auto-completion-tab-key-behavior 'complete
+                      disabled-for 'eshell)
      (ranger :variables
               ranger-show-preview t)
-     pdf-tools
+     pdf
      csv
      csharp
      docker
@@ -51,8 +52,10 @@
      bongo
      forecast
      ;mu4e-alert
+     epresent
      ssh
      helm-google
+     polymode
      ov
      smtpmail ;; necessary?
     )
@@ -154,7 +157,7 @@
   (setq scroll-margin 20)
 
   ; but not in shells, of course
-  (with-eval-after-load 'r
+  (with-eval-after-load 'ess
     (add-hook 'ess-mode-hook (lambda () (setq scroll-margin 1))))
 
   (with-eval-after-load 'eshell
