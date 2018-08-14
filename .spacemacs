@@ -16,7 +16,7 @@
                       disabled-for 'eshell)
      (ranger :variables
               ranger-show-preview t)
-     pdf
+     pdf-tools
      csv
      csharp
      docker
@@ -130,10 +130,15 @@
    ))
 
 (defun dotspacemacs/user-init ()
-
   )
 
 (defun dotspacemacs/user-config ()
+
+  ; start text modes (which includes markdown) with autofill mode enabled
+  (add-hook 'text-mode-hook 'turn-on-auto-fill)
+
+  ; change mode of .Rmd files to markdown
+  (add-to-list 'auto-mode-alist '("\\.Rmd\\'" . markdown-mode))
 
   ; disable linum-mode in pdf-tools; it's unusable otherwise
   (add-hook 'pdf-view-mode-hook (lambda() (linum-mode -1)))
