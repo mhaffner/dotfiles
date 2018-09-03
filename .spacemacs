@@ -16,7 +16,8 @@
                       disabled-for 'eshell)
      (ranger :variables
               ranger-show-preview t)
-     pdf-tools
+     pdf
+     ;pdf-tools
      csv
      csharp
      docker
