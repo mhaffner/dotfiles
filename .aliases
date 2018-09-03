@@ -7,3 +7,4 @@ alias ncm=ncmpcpp
 alias weather="curl wttr.in"
 alias sys="glances -1"
 alias update="sudo pacman -Syu"
+alias sus="systemctl suspend"

@@ -135,6 +135,25 @@
 
 (defun dotspacemacs/user-config ()
 
+  (defun rmd-render ()
+    "Spawning an R process is a pain to simply render an RMarkdown
+     file from within Emacs. Here I do it as a function. Must be in
+     the buffer you want to render."
+    (interactive)
+    ;; build the R render command
+    (setq rcmd (concat "rmarkdown::render('" buffer-file-name "')"))
+    ;; pipe the r command to r from the terminal
+    (setq command (concat "echo \"" rcmd "\" | R --vanilla"))
+    (compile command))
+
+  ; assign this function to a keybinding
+  (add-hook 'markdown-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-c r") 'rmd-render)))
+
+  ; used to kill the compiler buffer if everything goes ok
+  (add-hook 'compilation-finish-functions (lambda (buf strg) (kill-buffer buf)))
+
   ; start text modes (which includes markdown) with autofill mode enabled
   (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
@@ -242,20 +261,13 @@
     )
 
   (with-eval-after-load 'helm
-  (define-key helm-map (kbd "C-d") 'helm-next-page)
-  (define-key helm-map (kbd "C-u") 'helm-previous-page))
+    (define-key helm-map (kbd "C-d") 'helm-next-page)
+    (define-key helm-map (kbd "C-u") 'helm-previous-page))
 
   (with-eval-after-load 'flyspell
     (define-key flyspell-mode-map (kbd "C-SPC") 'flyspell-auto-correct-word))
 
-  ; these need to be separate from other setq's?
-  ;(setq
-  ; calendar-latitude 36.11236
-  ; calendar-location-name "Stillwater, Oklahoma"
-  ; calendar-longitude -97.07025
-  ; forecast-api-key "e6a50bacd182e9bae30bae1e878d9355"
-  ; forecast-units "si")
-
+  ; this needs to be separate from other setq's?
   (setq
    calendar-latitude 44.7967
    calendar-location-name "Eau Claire, WI"
@@ -330,3 +342,23 @@
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
+(defun dotspacemacs/emacs-custom-settings ()
+  "Emacs custom settings.
+This is an auto-generated function, do not modify its content directly, use
+Emacs customize menu instead.
+This function is called at the very end of Spacemacs initialization."
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (xterm-color shell-pop multi-term eshell-z eshell-prompt-extras esh-help zenburn-theme yapfify yaml-mode ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit symon string-inflection ssh sql-indent spaceline smeargle slim-mode scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe restart-emacs rbenv ranger rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode popwin polymode pip-requirements persp-mode pdf-tools paradox ox-reveal ov orgit org-ref org-projectile org-present org-pomodoro org-download org-bullets open-junk-file omnisharp noctilux-theme neotree move-text monokai-theme mmm-mode minitest markdown-toc magit-gitflow macrostep lua-mode lorem-ipsum livid-mode live-py-mode linum-relative link-hint less-css-mode js2-refactor js-doc intero info+ indent-guide hy-mode hungry-delete htmlize hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-mode-manager helm-make helm-hoogle helm-google helm-gitignore helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-ag haskell-snippets gruvbox-theme google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy forecast flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-args evil-anzu eval-sexp-fu ess-smart-equals ess-R-object-popup ess-R-data-view epresent emmet-mode elisp-slime-nav dumb-jump dockerfile-mode docker diff-hl define-word cython-mode csv-mode company-web company-tern company-statistics company-ghci company-ghc company-cabal company-auctex company-anaconda column-enforce-mode coffee-mode cmm-mode clean-aindent-mode chruby cargo bundler browse-at-remote bongo badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line ac-ispell))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+)
