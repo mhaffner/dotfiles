@@ -144,6 +144,7 @@
     (setq rcmd (concat "rmarkdown::render('" buffer-file-name "')"))
     ;; pipe the r command to r from the terminal
     (setq command (concat "echo \"" rcmd "\" | R --vanilla"))
+    ;; i have no idea why compile is used here but it works
     (compile command))
 
   ; assign this function to a keybinding
@@ -223,7 +224,7 @@
    spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
    powerline-default-separator 'arrow-fade
    vc-follow-symlinks nil
-   org-reveal-root "")
+   org-reveal-root "/home/matt/git-repos/reveal.js")
 
   ; some other variables
   (set-default 'truncate-lines t)
