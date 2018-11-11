@@ -135,6 +135,31 @@
 
 (defun dotspacemacs/user-config ()
 
+  (defun open-html-firefox ()
+    "When working with Rmarkdown files, I frequently find myself
+    entering commands like ':! firefox my-rmarkdown.html' to open
+    the current .Rmd file (often newly rendered) in a browser. If
+    the .html file is already open in a browser, you can simply
+    refresh it, but I often use emacs as a navigation tool, then
+    open files from the evil shell (correct name?).
+
+    This function gets the current buffer name, strips the 'Rmd'
+    suffix, appends 'html' to it, and opens the file in firefox."
+
+    (interactive)
+
+    ; create the new string of the file to open
+    (setq file-string (replace-regexp-in-string "\.Rmd" ".html" (buffer-file-name)))
+
+    ; execute command
+    (shell-command (concat "firefox " file-string)))
+
+
+    ; assign this function to a keybinding
+    (add-hook 'markdown-mode-hook
+      (lambda ()
+        (local-set-key (kbd "C-c f") 'open-html-firefox)))
+
   (defun rmd-render ()
     "Spawning an R process is a pain to simply render an RMarkdown
      file from within Emacs. Here I do it as a function. Must be in
