@@ -146,20 +146,11 @@
 
     This function gets the current buffer name, strips the 'Rmd'
     suffix, appends 'html' to it, and opens the file in firefox."
-
     (interactive)
-
-    ; create the new string of the file to open
+    ;; create the new string of the file to open
     (setq file-string (concat (file-name-sans-extension (buffer-file-name)) ".html"))
-
-    ; execute command
+    ;; execute command
     (shell-command (concat "firefox " file-string)))
-
-
-    ; assign this function to a keybinding in markdown mode
-    (add-hook 'markdown-mode-hook
-      (lambda ()
-        (local-set-key (kbd "C-c f") 'open-html-firefox)))
 
     ; assign this function to a keybinding in org mode
     (add-hook 'org-mode-hook
@@ -178,10 +169,13 @@
     ;; i have no idea why compile is used here but it works
     (compile command))
 
-  ; assign this function to a keybinding
+  ;; markdown mode keybindings
   (add-hook 'markdown-mode-hook
-            (lambda ()
-              (local-set-key (kbd "C-c r") 'rmd-render)))
+    (lambda ()
+      (local-set-key (kbd "C-c f") 'open-html-firefox)
+      (local-set-key (kbd "C-c s") 'add-src-elements-md)
+      (local-set-key (kbd "C-c r") 'rmd-render)))
+
 
   ; used to kill the compiler buffer if everything goes ok
   (add-hook 'compilation-finish-functions (lambda (buf strg) (kill-buffer buf)))
@@ -228,6 +222,12 @@
     (forward-line -1)
     (evil-append-line 1)
     (insert " "))
+
+  (defun add-src-elements-md ()
+    "Make adding r source code blocks easier"
+    (interactive)
+    (insert "```{r echo = FALSE, eval = FALSE, message = FALSE, warning = FALSE}\n\n```")
+    (forward-line -1))
 
   (defun zoom-frm-in-four ()
     "I always find myself zooming in and out on my laptop
@@ -374,23 +374,3 @@
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
-(defun dotspacemacs/emacs-custom-settings ()
-  "Emacs custom settings.
-This is an auto-generated function, do not modify its content directly, use
-Emacs customize menu instead.
-This function is called at the very end of Spacemacs initialization."
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (orgit org-ref org-projectile org-category-capture org-present org-pomodoro org-mime org-download org-bullets org-brain org-plus-contrib zenburn-theme yasnippet-snippets yapfify yaml-mode xterm-color ws-butler winum which-key web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package toml-mode toc-org tagedit symon string-inflection ssh sql-indent spaceline-all-the-icons smeargle slim-mode shell-pop seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe restart-emacs rbenv ranger rake rainbow-delimiters racer pyvenv pytest pyenv-mode py-isort pug-mode prettier-js popwin polymode pippel pipenv pip-requirements persp-mode pdf-tools password-generator paradox ox-reveal overseer ov open-junk-file omnisharp noctilux-theme neotree nameless multi-term move-text monokai-theme mmm-mode minitest markdown-toc magit-svn magit-gitflow macrostep lorem-ipsum livid-mode live-py-mode link-hint key-chord json-navigator js2-refactor js-doc indent-guide importmagic impatient-mode hungry-delete hlint-refactor hl-todo hindent highlight-parentheses highlight-numbers highlight-indentation helm-xref helm-themes helm-swoop helm-pydoc helm-purpose helm-projectile helm-org-rifle helm-mode-manager helm-make helm-hoogle helm-google helm-gitignore helm-git-grep helm-flx helm-descbinds helm-css-scss helm-company helm-c-yasnippet helm-bibtex helm-ag haskell-snippets gruvbox-theme google-translate golden-ratio gnuplot gitignore-templates gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ gh-md fuzzy forecast font-lock+ flyspell-correct-helm flycheck-rust flycheck-pos-tip flycheck-haskell flx-ido fill-column-indicator fancy-battery eyebrowse expand-region evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-org evil-numbers evil-nerd-commenter evil-matchit evil-magit evil-lisp-state evil-lion evil-indent-plus evil-iedit-state evil-goggles evil-exchange evil-escape evil-ediff evil-cleverparens evil-args evil-anzu eval-sexp-fu ess-R-data-view eshell-z eshell-prompt-extras esh-help epresent emmet-mode elisp-slime-nav editorconfig dumb-jump dotenv-mode doom-modeline dockerfile-mode docker diminish diff-hl define-word cython-mode csv-mode counsel-projectile company-web company-tern company-statistics company-lua company-ghci company-cabal company-auctex company-anaconda column-enforce-mode cmm-mode clean-aindent-mode chruby centered-cursor-mode cargo bundler browse-at-remote bongo badwolf-theme auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile auctex-latexmk alert aggressive-indent ace-window ace-link ace-jump-helm-line ac-ispell))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-)
