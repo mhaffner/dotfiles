@@ -28,6 +28,7 @@ from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.config import EzKey
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, extension
+from plasma import Plasma
 
 try:
     from typing import List  # noqa: F401
@@ -38,8 +39,22 @@ mod = "mod4"
 
 keys = [
     # Switch between windows in current stack pane
-    Key([mod], "k", lazy.layout.down()),
-    Key([mod], "j", lazy.layout.up()),
+    EzKey("M-j", lazy.layout.down()),
+    EzKey("M-k", lazy.layout.up()),
+
+    # this currently only works with the plasma (i3 mimicking) layout
+    EzKey("M-h", lazy.layout.left()),
+    EzKey("M-l", lazy.layout.right()),
+
+    # this currently only works with the plasma (i3 mimicking) layout
+    EzKey("M-S-h", lazy.layout.move_left()),
+    EzKey("M-S-l", lazy.layout.move_right()),
+
+    ### can't figure out how to focus the group left/right; neither of these work as expected
+    #EzKey("M-h", lazy.layout.leet()),
+    #EzKey("M-h", lazy.layout.grow_left()),
+    #EzKey("M-l", lazy.layout.right()),
+    #EzKey("M-l", lazy.layout.flip_right()),
 
     # Move windows up or down in current stack
     Key([mod, "control"], "k", lazy.layout.shuffle_down()),
@@ -61,9 +76,9 @@ keys = [
     EzKey("M-<Return>", lazy.spawn("terminator")),
 
     # dmenu
-    EzKey("M-d", lazy.run_extension(extension.DmenuRun(
+    EzKey("M-C-d", lazy.run_extension(extension.DmenuRun(
         dmenu_prompt=">",
-        dmenu_font="Andika-8",
+        dmenu_font="Andika-10",
         background="#15181a",
         foreground="#00ff00",
         selected_background="#079822",
@@ -74,10 +89,10 @@ keys = [
     EzKey("M-S-<Tab>", lazy.next_layout()),
 
     # move to the group (i.e. workspace) on the right according to the bar
-    EzKey("M-l", lazy.screen.next_group()),
+    #EzKey("M-l", lazy.screen.next_group()),
 
     # move to the group (i.e. workspace) on the left according to the bar
-    EzKey("M-h", lazy.screen.prev_group()),
+    #EzKey("M-h", lazy.screen.prev_group()),
 
     # switch to other screen
     EzKey("M-<Tab>", lazy.next_screen()),
@@ -87,7 +102,38 @@ keys = [
     EzKey("M-S-e", lazy.shutdown()),
 ]
 
-groups = [Group(i) for i in "asfuiop"]
+## one paradigm for groups
+#group_labels = ["a: web", "s: emacs", "d: sys", "f: misc", "z: misc", "x: misc", "c: misc", "v:misc"]
+#group_names = list('asdfzxcv')
+#persists = [True, True, True, True, False, False, False, False]
+#
+#groups = [
+#    Group(
+#        name=group_name,
+#        label=group_label,
+#        persist=persists)
+#    for group_name, group_label, persist in zip(
+#            group_names, group_labels, persists)
+#    ]
+#
+#for i in groups:
+#    keys.extend([
+#        # mod1 + letter of group = switch to group
+#        Key([mod], i.name, lazy.group[i.name].toscreen()),
+#
+#        # mod1 + shift + letter of group = switch to & move focused window to group
+#        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
+#    ])
+groups = [
+    Group(name = "a", persist = True, init = True, label = "a: web"),
+    Group(name = "s", persist = True, init = True, label = "s: sys"),
+    Group(name = "d", persist = True, init = True, label = "d: emacs"),
+    Group(name = "f", persist = True, init = True, label = "f: misc"),
+    Group(name = "z", persist = False, init = False, label = "z: rats"),
+    Group(name = "x", persist = False, init = False, label = "x: rats"),
+    Group(name = "c", persist = False, init = False, label = "c: rats"),
+    Group(name = "v", persist = False, init = False, label = "v: rats")
+]
 
 for i in groups:
     keys.extend([
@@ -99,6 +145,15 @@ for i in groups:
     ])
 
 layouts = [
+    Plasma(
+        border_normal='#333333',
+        border_focus='#00e891',
+        border_normal_fixed='#006863',
+        border_focus_fixed='#00e8dc',
+        border_width=1,
+        border_width_single=0,
+        margin=10
+    ),
     layout.Max(),
     layout.Stack(num_stacks=2)
 ]
@@ -115,10 +170,10 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.GroupBox(),
-                widget.Prompt(),
+                widget.CurrentScreen(padding=10),
+                widget.Pacman(),
+                widget.CPUGraph(),
                 widget.WindowName(),
-                #widget.TextBox("default config", name="default"),
-                #widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
             24,
@@ -128,9 +183,9 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.GroupBox(),
-                widget.Prompt(),
+                widget.CurrentScreen(padding=10),
                 widget.WindowName(),
-                #widget.TextBox("default config", name="default"),
+                widget.CPUGraph(),
                 widget.Systray(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
