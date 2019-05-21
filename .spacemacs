@@ -16,8 +16,8 @@
                       disabled-for 'eshell)
      (ranger :variables
               ranger-show-preview t)
-     pdf
-     ;pdf-tools
+     ;pdf
+     pdf-tools
      csv
      csharp
      docker
@@ -88,9 +88,9 @@
                                    :size 16
                                    :weight normal
                                    :width normal
-                                   :powerline-scale 1.00)
+                                   :powerline-scale 3.00)
                                  '("Source Code Pro"
-                                   :size 16
+                                   :size 18
                                    :weight normal
                                    :width normal
                                    :powerline-scale 1.00))
@@ -151,6 +151,11 @@
     (setq file-string (concat (file-name-sans-extension (buffer-file-name)) ".html"))
     ;; execute command
     (shell-command (concat "firefox " file-string)))
+
+    ; assign this function to a keybinding in markdown mode
+    (add-hook 'markdown-mode-hook
+      (lambda ()
+        (local-set-key (kbd "C-c f") 'open-html-firefox)))
 
     ; assign this function to a keybinding in org mode
     (add-hook 'org-mode-hook
@@ -255,7 +260,8 @@
    spacemacs-useless-buffers-regexp '("\\*helm\.+\\*") ; make only helm buffers useless
    powerline-default-separator 'arrow-fade
    vc-follow-symlinks nil
-   org-reveal-root "/home/matt/git-repos/reveal.js")
+   org-reveal-root "")
+   ;org-reveal-root "/home/matt/git-repos/reveal.js")
 
   ; some other variables
   (set-default 'truncate-lines t)

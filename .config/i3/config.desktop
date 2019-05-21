@@ -18,7 +18,7 @@ bindsym $mod+d exec dmenu_run -fn 'SourceCodePro:pixelsize=16'
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # start a terminal
-bindsym $mod+Return exec urxvt 
+bindsym $mod+Return exec terminator 
 
 # screen brightness controls
 bindcode $mod+72 exec xbacklight -inc 5 

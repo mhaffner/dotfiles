@@ -60,3 +60,8 @@
 
 # stumpwm
 !.config/stumpwm
+
+# qtile
+!.config/qtile
+.config/qtile/*
+!.config/qtile/config.py
