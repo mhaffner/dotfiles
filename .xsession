@@ -14,8 +14,8 @@ if [ $(hostname) == "960-evo" ]; then
 fi
 
 
-bash ~/.config/i3/config-generation.sh
-bash ~/git-repos/shell-scripts/set-background.sh
-xset s off
-xset -dpms
-/usr/bin/i3
+#bash ~/.config/i3/config-generation.sh
+#bash ~/git-repos/shell-scripts/set-background.sh
+#xset s off
+#xset -dpms
+#/usr/bin/i3
