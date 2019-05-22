@@ -50,12 +50,6 @@ keys = [
     EzKey("M-S-h", lazy.layout.move_left()),
     EzKey("M-S-l", lazy.layout.move_right()),
 
-    ### can't figure out how to focus the group left/right; neither of these work as expected
-    #EzKey("M-h", lazy.layout.leet()),
-    #EzKey("M-h", lazy.layout.grow_left()),
-    #EzKey("M-l", lazy.layout.right()),
-    #EzKey("M-l", lazy.layout.flip_right()),
-
     # Move windows up or down in current stack
     Key([mod, "control"], "k", lazy.layout.shuffle_down()),
     Key([mod, "control"], "j", lazy.layout.shuffle_up()),
@@ -71,6 +65,11 @@ keys = [
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
     Key([mod, "shift"], "Return", lazy.layout.toggle_split()),
+
+    # switch to a screen explicitly
+    EzKey("M-1", lazy.to_screen(0)),
+    EzKey("M-2", lazy.to_screen(1)),
+    EzKey("M-3", lazy.to_screen(2)),
 
     # terminal
     EzKey("M-<Return>", lazy.spawn("terminator")),
@@ -102,28 +101,6 @@ keys = [
     EzKey("M-S-e", lazy.shutdown()),
 ]
 
-## one paradigm for groups
-#group_labels = ["a: web", "s: emacs", "d: sys", "f: misc", "z: misc", "x: misc", "c: misc", "v:misc"]
-#group_names = list('asdfzxcv')
-#persists = [True, True, True, True, False, False, False, False]
-#
-#groups = [
-#    Group(
-#        name=group_name,
-#        label=group_label,
-#        persist=persists)
-#    for group_name, group_label, persist in zip(
-#            group_names, group_labels, persists)
-#    ]
-#
-#for i in groups:
-#    keys.extend([
-#        # mod1 + letter of group = switch to group
-#        Key([mod], i.name, lazy.group[i.name].toscreen()),
-#
-#        # mod1 + shift + letter of group = switch to & move focused window to group
-#        Key([mod, "shift"], i.name, lazy.window.togroup(i.name)),
-#    ])
 groups = [
     Group(name = "a", persist = True, init = True, label = "a: web"),
     Group(name = "s", persist = True, init = True, label = "s: sys"),
@@ -169,12 +146,14 @@ screens = [
     Screen(
         bottom=bar.Bar(
             [
+                widget.TextBox(text = "1 |"), # to indicate screen number
                 widget.GroupBox(),
                 widget.CurrentScreen(padding=10),
-                widget.Pacman(),
                 widget.CPUGraph(),
                 widget.WindowName(),
+                widget.MemoryGraph(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
+                #widget.YahooWeather(woeid = "2396707")
             ],
             24,
         ),
@@ -182,11 +161,12 @@ screens = [
     Screen(
         bottom=bar.Bar(
             [
+                widget.TextBox(text = "2 |"), # to indicate screen number
                 widget.GroupBox(),
                 widget.CurrentScreen(padding=10),
                 widget.WindowName(),
                 widget.CPUGraph(),
-                widget.Systray(),
+                widget.MemoryGraph(),
                 widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
             ],
             24,
